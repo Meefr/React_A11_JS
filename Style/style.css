@@ -4,7 +4,10 @@ html{
   cursor: default;
 }
 :root{
-  --text-danger:#DC3545
+  --bg-danger:#DC3545;
+  --text-danger:#DC3545;
+  --transition: 0.5s ease;
+  --transition-style:ease;
 }
 .popup-notification {
   position: fixed;
@@ -17,7 +20,7 @@ html{
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity var(--transition), visibility var(--transition);
   z-index: 10000;
 }
 
@@ -51,7 +54,7 @@ h3{
   cursor: pointer;
   font-weight: 400;
   font-size: large;
-  transition: 0.5s ease;
+  transition: var(--transition);
   /* background-color: aquamarine; */
   width: 90%;
 }
@@ -71,7 +74,12 @@ h3{
 .h100{
     height: 100%;
 }
-
+.icon{
+  transition: var(--transition);
+}
+.icon:hover{
+  color: var(--bg-danger) ;
+}
 @media (max-width: 992px) {
   /* For screens smaller than md */
   #side-bar {
@@ -80,7 +88,7 @@ h3{
     height: 70vh;
     left: -170px;
     right: calc(100% - 10px) !important;
-    /* transition: 0.5s ease-in-out; */
+    /* transition: var(--transition)-in-out; */
     /* z-index: -10000; */
   }
 

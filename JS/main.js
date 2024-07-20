@@ -215,8 +215,8 @@ function successCarts(data) {
                   <p class="m-0">Price: <span>${item.quantity}</span> x <span>${item.price}</span> : <span>${item.total}</span></p>
                 </div>
                 <div class="d-flex flex-row flex-md-column gap-3 justify-content-center align-items-center flex-wrap">
-                  <i class="fa-solid fa-up-long" id="add-item-${item.id}" style="cursor:pointer;"></i>
-                  <i class="fa-solid fa-down-long" id="delete-item-${item.id}" style="cursor:pointer;"></i>
+                  <i class="fa-solid fa-up-long icon" id="add-item-${item.id}" style="cursor:pointer;"></i>
+                  <i class="fa-solid fa-down-long icon" id="delete-item-${item.id}" style="cursor:pointer;"></i>
                 </div>
               </div>`;
         })
