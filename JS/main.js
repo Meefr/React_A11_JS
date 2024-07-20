@@ -202,11 +202,14 @@ function successCarts(data) {
     cartItemsContainer.html(
       data.products
         .map((item) => {
-          return `<div class="d-flex justify-content-around align-items-center gap-2 position-relative p-4">
-                <div class="position-absolute top-0 start-0 bg-danger d-flex justify-content-center align-items-center"
-                  style="width: 30px; height: 30px; cursor:pointer;" id = "${item.id}">
-                  <i class="fa-solid fa-xmark"></i>
-                </div>
+          return `<div class="d-flex justify-content-around align-items-center gap-2 position-relative p-4 border">
+          <div class="position-absolute top-0 start-0  d-flex justify-content-center align-items-center"
+          style="width: 30px; height: 30px; cursor:pointer;" id = "${item.id}">
+          <i class="fa-solid fa-xmark"></i>
+          </div>
+          <div class="w-25">
+           <img class="w-100"  src="${item.thumbnail}" alt="">
+         </div>
                 <div class="d-flex flex-column gap-2 justify-content-center align-items-center flex-wrap">
                   <h5 class="m-0">${item.title}</h5>
                   <p class="m-0">Price: <span>${item.quantity}</span> x <span>${item.price}</span> : <span>${item.total}</span></p>
