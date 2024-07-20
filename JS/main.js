@@ -12,6 +12,8 @@ const cartIcon = $("#cart-icon");
 const cartLength = $("#cart-number");
 const cartItemsContainer = $("#cart-items-container");
 const cartNumber = 1;
+const menu = $("#slider");
+const menuItems = $("#side-bar");
 let cartItems = [];
 let isChanges = 0;
 
@@ -144,7 +146,7 @@ function successProducts(data) {
           thumbnail: product.thumbnail,
         };
         return `
-          <div class="col-4">
+          <div class="col-12 col-sm-6 col-md-4">
             <div class="border rounded-2">
               <img src="${product.thumbnail}" class="w-100 mb-2" alt="">
               <div class="px-2">
@@ -246,3 +248,10 @@ cartContainerCloseBtn.on("click", () => {
   cartContainer.removeClass("end-0");
   cartContainer.addClass("out-left-screen");
 });
+
+
+
+menu.on("click",()=>{
+  menuItems.toggleClass("left-0");
+  
+})
