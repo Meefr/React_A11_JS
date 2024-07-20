@@ -12,20 +12,20 @@
 </head>
 
 <body>
-  <div class="cart-container position-fixed w-25 h-100 out-left-screen top-0 bg-light z-1" id="cart-container">
+  <div class="cart-container position-fixed w-25 h-100 overflow-auto out-left-screen top-0 bg-light z-1" id="cart-container">
     <div
       class="cart-header d-flex justify-content-center align-items-center p-3 bg-danger text-white fs-2 position-relative" >
-      <h3 onclick="ss()">items</h3>
+      <h3>items</h3>
       <div id="cart-close-btn" class="position-absolute top-0 start-0 bg-danger d-flex justify-content-center align-items-center m-1"
         style="width: 30px; height: 30px;">
         <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
-    <div class="container">
-      <div class="row">
+    <div class="container ">
+      <div class="row overflow-y-auto">
         <div class="col-12 d-flex justify-content-center align-items-center p-3 ">
           <div class="border w-100 p-4 " id="cart-items-container">
-            <div class="d-flex justify-content-around align-items-center flex-wrap position-relative">
+            <!-- <div class="d-flex justify-content-around align-items-center flex-wrap position-relative">
               <div class="position-absolute top-0 start-0 bg-danger d-flex justify-content-center align-items-center"
                 style="width: 30px; height: 30px;">
                 <i class="fa-solid fa-xmark"></i>
@@ -39,7 +39,7 @@
                 <i class="fa-solid fa-up-long"></i>
                 <i class="fa-solid fa-down-long"></i>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
