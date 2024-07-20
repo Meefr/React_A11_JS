@@ -1,3 +1,27 @@
+html{
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent ;
+}
+
+.popup-notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.popup-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 .display-none {
   display: none !important;
 }

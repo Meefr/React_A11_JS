@@ -129,6 +129,15 @@ function successCats(data) {
   });
 }
 
+function showPopupNotification() {
+  const popup = document.getElementById("popup-notification");
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 2000); // Hide after 2 seconds
+}
+
 function successProducts(data) {
   console.log(data);
   console.log(productsDoc);
@@ -162,6 +171,7 @@ function successProducts(data) {
                 </div>
                 <div class="d-flex justify-content-around align-items-center flex-nowrap gap-1 py-2">
                   <p class="m-0 fw-bold fs-3">$${product.price}</p>
+                  
                   <button type="button" class="btn btn-danger add-to-cart-btn" data-product='${JSON.stringify(
                     pCart
                   )}'>Add to cart</button>
@@ -171,11 +181,12 @@ function successProducts(data) {
           </div>`;
       })
       .join("")
-  );
+  ); 
 
   $(".add-to-cart-btn").on("click", function () {
     const product = JSON.parse($(this).attr("data-product"));
     addTocart(product);
+    showPopupNotification();
   });
 }
 function successCarts(data) {
@@ -255,3 +266,19 @@ menu.on("click",()=>{
   menuItems.toggleClass("left-0");
   
 })
+
+$(document).ready(function () {
+  $("#success-alert").hide();
+  $("#myWish").click(function showAlert() {
+    $("#success-alert")
+      .fadeTo(2000, 500)
+      .slideUp(500, function () {
+        $("#success-alert").slideUp(500);
+      });
+  });
+});
+$("#success-alert")
+  .fadeTo(2000, 500)
+  .slideUp(500, function () {
+    $("#success-alert").slideUp(500);
+  });
