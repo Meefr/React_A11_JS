@@ -15,7 +15,7 @@
   <div id="popup-notification" class="popup-notification">
     Product added to cart!
   </div>
-  
+
   <div class="cart-container position-fixed col-12 col-md-3 h-100 overflow-auto out-left-screen top-0 bg-light z-1" id="cart-container">
     <div
     class="cart-header d-flex justify-content-center align-items-center p-3 bg-danger text-white fs-2 position-relative" >
@@ -25,7 +25,15 @@
         <i class="fa-solid fa-xmark"></i>
       </div>
     </div>
-    <div class="container ">
+    <div class="container">
+      <div class="row py-4 d-none" id="cart-alert">
+        <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                  This is a danger alert—check it out!
+                </div>
+        </div>
+      </div>
+
       <div class="row overflow-y-auto">
         <div class="col-12 d-flex justify-content-center align-items-center p-3 ">
           <div class="border w-100 p-4 " id="cart-items-container">

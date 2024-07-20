@@ -14,6 +14,7 @@ const cartItemsContainer = $("#cart-items-container");
 const cartNumber = 1;
 const menu = $("#slider");
 const menuItems = $("#side-bar");
+const cartAlert = $("#cart-alert");
 let cartItems = [];
 let isChanges = 0;
 
@@ -73,10 +74,8 @@ function removeOneItem(id) {
 
 function removeFromCart(productId) {
   cartItems = cartItems.filter((item) => {
-    if(item.id !== productId)
-      return item;
-    else 
-      isChanges -= item.quantity;
+    if (item.id !== productId) return item;
+    else isChanges -= item.quantity;
   });
   successCarts({ products: cartItems });
 }
@@ -131,9 +130,8 @@ function successCats(data) {
 
 function showPopupNotification(text) {
   const popup = document.getElementById("popup-notification");
-  popup.innerHTML = `${text} added to cart`
+  popup.innerHTML = `${text} added to cart`;
   popup.classList.add("show");
-
 
   setTimeout(() => {
     popup.classList.remove("show");
@@ -183,7 +181,7 @@ function successProducts(data) {
           </div>`;
       })
       .join("")
-  ); 
+  );
 
   $(".add-to-cart-btn").on("click", function () {
     const product = JSON.parse($(this).attr("data-product"));
@@ -195,10 +193,16 @@ function successProducts(data) {
 function successCarts(data) {
   cartItems = data.products;
   cartLength.text(data.products.length);
-  cartItemsContainer.html(
-    data.products
-      .map((item) => {
-        return `<div class="d-flex justify-content-around align-items-center gap-2 position-relative p-4">
+  if (cartItems.length == 0) {
+    cartAlert.removeClass("d-none");
+    cartItemsContainer.addClass("d-none");
+  } else {
+    cartItemsContainer.removeClass("d-none");
+    cartAlert.addClass("d-none");
+    cartItemsContainer.html(
+      data.products
+        .map((item) => {
+          return `<div class="d-flex justify-content-around align-items-center gap-2 position-relative p-4">
                 <div class="position-absolute top-0 start-0 bg-danger d-flex justify-content-center align-items-center"
                   style="width: 30px; height: 30px; cursor:pointer;" id = "${item.id}">
                   <i class="fa-solid fa-xmark"></i>
@@ -212,20 +216,21 @@ function successCarts(data) {
                   <i class="fa-solid fa-down-long" id="delete-item-${item.id}" style="cursor:pointer;"></i>
                 </div>
               </div>`;
-      })
-      .join("")
-  );
-  data.products.forEach((item) => {
-    $(`#${item.id}`).on("click", () => {
-      removeFromCart(item.id);
+        })
+        .join("")
+    );
+    data.products.forEach((item) => {
+      $(`#${item.id}`).on("click", () => {
+        removeFromCart(item.id);
+      });
+      $(`#add-item-${item.id}`).on("click", () => {
+        addOneItem(item.id);
+      });
+      $(`#delete-item-${item.id}`).on("click", () => {
+        removeOneItem(item.id);
+      });
     });
-    $(`#add-item-${item.id}`).on("click", () => {
-      addOneItem(item.id);
-    });
-    $(`#delete-item-${item.id}`).on("click", () => {
-      removeOneItem(item.id);
-    });
-  });
+  }
 }
 
 // handelRemoteRequest(
@@ -263,10 +268,6 @@ cartContainerCloseBtn.on("click", () => {
   cartContainer.addClass("out-left-screen");
 });
 
-
-
-menu.on("click",()=>{
+menu.on("click", () => {
   menuItems.toggleClass("left-0");
-  
-})
-
+});
