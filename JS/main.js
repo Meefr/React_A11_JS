@@ -70,8 +70,12 @@ function removeOneItem(id) {
 }
 
 function removeFromCart(productId) {
-  isChange -= cartItems[productId].quantity;
-  cartItems = cartItems.filter((item) => item.id !== productId);
+  cartItems = cartItems.filter((item) => {
+    if(item.id !== productId)
+      return item;
+    else 
+      isChanges -= item.quantity;
+  });
   successCarts({ products: cartItems });
 }
 
