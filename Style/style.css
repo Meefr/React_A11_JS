@@ -1,8 +1,11 @@
 html{
   scrollbar-width: thin;
   scrollbar-color: transparent transparent ;
+  cursor: default;
 }
-
+:root{
+  --text-danger:#DC3545
+}
 .popup-notification {
   position: fixed;
   bottom: 20px;
@@ -35,7 +38,30 @@ li {
 #cart-close-btn {
   cursor: pointer;
 }
+#categories{
+  overflow: auto;
+  height: 50vh;
+}
+h3{
+  border-bottom: 1px solid;
+  padding-bottom: 20px;
+}
+#categories li{
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: large;
+  transition: 0.5s ease;
+  /* background-color: aquamarine; */
+  width: 90%;
+}
 
+#categories li:hover{
+  color: white;
+  width: 100%;
+  background-color: var(--text-danger);
+
+}
 .out-left-screen {
   right: -100%;
 }
@@ -88,5 +114,9 @@ li {
   }
   #slider {
     display: none;
+  }
+  #side-bar{
+        position: fixed;
+    left: 0;
   }
 }
