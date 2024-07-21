@@ -15,7 +15,7 @@ const cartNumber = 1;
 const menu = $("#slider");
 const menuItems = $("#side-bar");
 const cartAlert = $("#cart-alert");
-let cartItems = [];
+let cartItems = {products:[]};
 let isChanges = 0;
 
 // function to get data from endpoint
@@ -25,59 +25,60 @@ let isChanges = 0;
 window.addEventListener("beforeunload", () => {
   if (isChanges != 0) {
     console.log("before loading!");
-    handelRemotePost(
-      `carts/${cartNumber}`,
-      faild,
-      lodingTrigger,
-      cartItems,
-      "PUT",
-      true
-    );
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    // handelRemotePost(
+    //   `carts/${cartNumber}`,
+    //   faild,
+    //   lodingTrigger,
+    //   cartItems,
+    //   "PUT",
+    //   true
+    // );
   }
 });
 
 function addTocart(product) {
   isChanges++;
-  const productIndex = cartItems.findIndex((item) => item.id === product.id);
+  const productIndex = cartItems.products.findIndex((item) => item.id === product.id);
   if (productIndex !== -1) {
-    cartItems[productIndex].quantity =
-      Number(cartItems[productIndex].quantity) + 1;
-    cartItems[productIndex].total =
-      cartItems[productIndex].quantity * Number(cartItems[productIndex].price);
+    cartItems.products[productIndex].quantity =
+      Number(cartItems.products[productIndex].quantity) + 1;
+    cartItems.products[productIndex].total =
+      cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price);
   } else {
-    cartItems.push(product);
+    cartItems.products.push(product);
   }
-  successCarts({ products: cartItems });
+  successCarts({ products: cartItems.products });
 }
 function addOneItem(id) {
   isChanges++;
-  const productIndex = cartItems.findIndex((item) => item.id === id);
-  cartItems[productIndex].quantity =
-    Number(cartItems[productIndex].quantity) + 1;
-  cartItems[productIndex].total =
-    cartItems[productIndex].quantity * Number(cartItems[productIndex].price);
+  const productIndex = cartItems.products.findIndex((item) => item.id === id);
+  cartItems.products[productIndex].quantity =
+    Number(cartItems.products[productIndex].quantity) + 1;
+  cartItems.products[productIndex].total =
+    cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price);
 
-  successCarts({ products: cartItems });
+  successCarts({ products: cartItems.products });
 }
 function removeOneItem(id) {
   isChanges--;
-  const productIndex = cartItems.findIndex((item) => item.id === id);
-  cartItems[productIndex].quantity =
-    Number(cartItems[productIndex].quantity) - 1;
-  cartItems[productIndex].total =
-    cartItems[productIndex].quantity * Number(cartItems[productIndex].price);
-  if (cartItems[productIndex].quantity <= 0) {
-    cartItems.splice(productIndex, 1);
+  const productIndex = cartItems.products.findIndex((item) => item.id === id);
+  cartItems.products[productIndex].quantity =
+    Number(cartItems.products[productIndex].quantity) - 1;
+  cartItems.products[productIndex].total =
+    cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price);
+  if (cartItems.products[productIndex].quantity <= 0) {
+    cartItems.products.splice(productIndex, 1);
   }
-  successCarts({ products: cartItems });
+  successCarts({ products: cartItems.products });
 }
 
 function removeFromCart(productId) {
-  cartItems = cartItems.filter((item) => {
+  cartItems.products = cartItems.products.filter((item) => {
     if (item.id !== productId) return item;
     else isChanges -= item.quantity;
   });
-  successCarts({ products: cartItems });
+  successCarts({ products: cartItems.products });
 }
 
 function lodingTrigger(trigger) {
@@ -191,12 +192,12 @@ function successProducts(data) {
   });
 }
 function successCarts(data) {
-  cartItems = data.products;
-  cartLength.text(data.products.length);
-  if (cartItems.length == 0) {
+  if (!data) {
     cartAlert.removeClass("d-none");
     cartItemsContainer.addClass("d-none");
   } else {
+    cartItems = data;
+    cartLength.text(data.products.length);
     cartItemsContainer.removeClass("d-none");
     cartAlert.addClass("d-none");
     cartItemsContainer.html(
@@ -252,12 +253,20 @@ handelRemoteRequest("products", successProducts, faild, lodingTrigger)
     )
   )
   .then(() =>
-    handelRemoteRequest(
-      `carts/${cartNumber}`,
-      successCarts,
-      faild,
-      lodingTrigger
-    )
+    // handelRemoteRequest(
+    //   `carts/${cartNumber}`,
+    //   successCarts,
+    //   faild,
+    //   lodingTrigger
+    // )
+    {
+      const cart = JSON.parse(localStorage.getItem("cart"));
+      successCarts(cart);
+      // if (cart) {
+      // }else{
+
+      // }
+    }
   );
 
 //loding
