@@ -44,7 +44,7 @@ function addTocart(product) {
     cartItems.products[productIndex].quantity =
       Number(cartItems.products[productIndex].quantity) + 1;
     cartItems.products[productIndex].total =
-      cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price);
+      (cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price)).toFixed(2);
   } else {
     cartItems.products.push(product);
   }
@@ -56,7 +56,7 @@ function addOneItem(id) {
   cartItems.products[productIndex].quantity =
     Number(cartItems.products[productIndex].quantity) + 1;
   cartItems.products[productIndex].total =
-    cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price);
+    (cartItems.products[productIndex].quantity * Number(cartItems.products[productIndex].price)).toFixed(2);
 
   successCarts({ products: cartItems.products });
 }
@@ -118,7 +118,12 @@ function successCats(data) {
       .join("")
   );
   data.forEach((category) => {
-    $(`#${category.slug}`).on("click", function () {
+    let doc = $(`#${category.slug}`);
+    doc.on("click", function () {
+      data.forEach((category) => {
+        $(`#${category.slug}`).removeClass("cat-selected");
+      })
+      doc.addClass("cat-selected");
       handelRemoteRequest(
         `products/category/${category.slug}`,
         successProducts,

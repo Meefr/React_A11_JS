@@ -80,6 +80,12 @@ h3{
 .icon:hover{
   color: var(--bg-danger) ;
 }
+.cat-selected{
+  background-color: var(--bg-danger) !important;
+  color: white !important;
+}
+
+
 @media (max-width: 992px) {
   /* For screens smaller than md */
   #side-bar {
