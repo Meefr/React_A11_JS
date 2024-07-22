@@ -109,30 +109,47 @@ function faild(error) {
   console.log(error);
 }
 function successCats(data) {
-  categoriesContainer.html(
-    data
-      .map(
-        (category, index) =>
-          `<li class="list-group-item " id="${category.slug}">${category.name}</li>`
-      )
-      .join("")
-  );
-  data.forEach((category) => {
-    let doc = $(`#${category.slug}`);
-    doc.on("click", function () {
-      data.forEach((category) => {
-        $(`#${category.slug}`).removeClass("cat-selected");
-      })
-      doc.addClass("cat-selected");
-      handelRemoteRequest(
-        `products/category/${category.slug}`,
-        successProducts,
-        faild,
-        lodingTrigger
-      );
+  const renderCategories = () => {
+    categoriesContainer.html(
+      data
+        .map(
+          (category, index) =>
+            `<li class="list-group-item" id="${category.slug}">${category.name}</li>`
+        )
+        .join("")
+    );
+
+    data.forEach((category) => {
+      let doc = $(`#${category.slug}`);
+      doc.on("click", function () {
+        // Remove the clicked category from the array
+        const categoryIndex = data.findIndex(
+          (cat) => cat.slug === category.slug
+        );
+        const [clickedCategory] = data.splice(categoryIndex, 1);
+
+        // Add the clicked category to the beginning of the array
+        data.unshift(clickedCategory);
+
+        // Re-render the categories
+        renderCategories();
+
+        // Ensure the cat-selected class is added to the newly created element
+        $(`#${category.slug}`).addClass("cat-selected");
+
+        handelRemoteRequest(
+          `products/category/${category.slug}`,
+          successProducts,
+          faild,
+          lodingTrigger
+        );
+      });
     });
-  });
+  };
+
+  renderCategories();
 }
+
 
 function showPopupNotification(text) {
   const popup = document.getElementById("popup-notification");
